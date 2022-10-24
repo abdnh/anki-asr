@@ -82,7 +82,7 @@ def on_field_filter(
             lambda: provider.transcribe(filename, lang), on_done
         )
         idx += 1
-        return f"<div class='asr'>ASR ({i+1})...<br></div>"
+        return "<div class='asr'>Transcribing audio...<br></div>"
 
     return SOUND_RE.sub(repl, field_text)
 
