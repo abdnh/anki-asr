@@ -1,0 +1,7 @@
+{
+    "provider_options": {
+        "deepgram": {
+            "api_key": ""
+        }
+    }
+}
