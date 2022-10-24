@@ -7,11 +7,12 @@ import sys
 from concurrent.futures import Future
 from dataclasses import dataclass
 from re import Match
+from typing import Any
 
 from anki import hooks
 from anki.cards import Card
 from anki.template import TemplateRenderContext
-from aqt import mw
+from aqt import gui_hooks, mw
 from aqt.browser.previewer import Previewer
 from aqt.clayout import CardLayout
 from aqt.qt import QApplication
@@ -52,39 +53,60 @@ def on_field_filter(
     options = dict(opt.split("=") for opt in filter_name.split()[1:])
     lang = options.get("lang", "en")
     provider_name = options.get("provider", "deepgram")
-    provider = get_provider(CONFIG, provider_name)
-
     idx = 0
 
     def repl(match: Match) -> str:
         filename = os.path.join(mw.col.media.dir(), match.group(1))
         nonlocal idx
-        i = idx
+        idx += 1
+        msg = {
+            "cmd": "transcribe",
+            "lang": lang,
+            "provider": provider_name,
+            "filename": filename,
+            "cid": ctx.card().id,
+            "idx": idx - 1,
+        }
+        cmd = json.dumps(f"{consts.CMD}:{json.dumps(msg)}")
+        return f"<div class='asr'>Transcribing audio...<br><script>pycmd({cmd})</script></div>"
+
+    return SOUND_RE.sub(repl, field_text)
+
+
+def handle_js_message(
+    handled: tuple[bool, Any], message: str, context: Any
+) -> tuple[bool, Any]:
+    cmd, *args = message.split(":", maxsplit=1)
+    if cmd != consts.CMD:
+        return handled
+    options = json.loads(args[0])
+
+    if options["cmd"] == "transcribe":
+        lang = options["lang"]
+        filename = options["filename"]
+        idx = options["idx"]
+        cid = int(options["cid"])
+        provider = get_provider(CONFIG, options["provider"])
 
         def on_done(fut: Future) -> None:
             result = fut.result()
             card_context = get_active_card_context()
-            if (
-                card_context.card
-                and card_context.web
-                and card_context.card.id == ctx.card().id
-            ):
+            if card_context.card and card_context.web and card_context.card.id == cid:
                 card_context.web.eval(
                     """
                     (() => {
                         document.getElementsByClassName('asr')[%d].textContent = %s;
                     })();
                 """
-                    % (i, json.dumps(result))
+                    % (idx, json.dumps(result))
                 )
 
         mw.taskman.run_in_background(
             lambda: provider.transcribe(filename, lang), on_done
         )
-        idx += 1
-        return "<div class='asr'>Transcribing audio...<br></div>"
 
-    return SOUND_RE.sub(repl, field_text)
+    return (True, None)
 
 
 hooks.field_filter.append(on_field_filter)
+gui_hooks.webview_did_receive_js_message.append(handle_js_message)
