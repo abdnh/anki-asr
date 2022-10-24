@@ -2,10 +2,17 @@ from __future__ import annotations
 
 import asyncio
 import mimetypes
+import sys
 
 from deepgram import Deepgram as DG
 
 from .provider import ASRProvider
+
+# Work around "RuntimeError: Event loop is closed"
+# TODO: Test in Anki 2.1.55+ and remove if the issue is resolved
+# Credit: https://github.com/encode/httpx/issues/914#issuecomment-622586610
+if sys.platform.startswith("win32"):
+    asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 
 class Deepgram(ASRProvider):
