@@ -45,6 +45,11 @@ def get_active_card_context() -> CardContext:
     return CardContext(mw.reviewer.card, mw.reviewer.web)
 
 
+def get_bool_option(options: dict, name: str, default: bool) -> bool:
+    val = options.get(name, "true" if default else "false").lower()
+    return val == "true"
+
+
 def on_field_filter(
     field_text: str, field_name: str, filter_name: str, ctx: TemplateRenderContext
 ) -> str:
@@ -53,6 +58,7 @@ def on_field_filter(
     options = dict(opt.split("=") for opt in filter_name.split()[1:])
     lang = options.get("lang", "en")
     provider_name = options.get("provider", "deepgram")
+    auto = get_bool_option(options, "auto", True)
     idx = 0
 
     def repl(match: Match) -> str:
@@ -70,7 +76,9 @@ def on_field_filter(
             "idx": idx - 1,
         }
         cmd = json.dumps(f"{consts.CMD}:{json.dumps(msg)}")
-        return f"<div class='asr'>Transcribing audio...<br><script>pycmd({cmd})</script></div>"
+        if auto:
+            return f"<div class='asr'>Transcribing audio...<br><script>pycmd({cmd})</script></div>"
+        return f"""<div class='asr'><button onclick='var div = document.createElement("div"); div.textContent = "Transcribing audio..."; event.currentTarget.parentElement.appendChild(div); pycmd({cmd}); return false;'>Transcribe audio ({idx})</button></div>"""
 
     return SOUND_RE.sub(repl, field_text)
 

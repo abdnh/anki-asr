@@ -33,6 +33,14 @@ The speech-to-text service used can be specified using the `provider` option. E.
 {{asr provider=deepgram:Front}}
 ```
 
+If you set `auto=false`, a button will be shown that you can click to show the transcription:
+
+```
+{{asr auto=false:Front}}
+```
+
+This is useful to avoid making a request to the ASR service when not needed, or to simply use the transcription as an optional hint.
+
 ## Planned features
 
 Besides adding support for more services, I plan to add an option to fill in note a chosen field with the transcription, maybe with an option to process notes in bulk.
