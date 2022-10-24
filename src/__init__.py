@@ -57,6 +57,8 @@ def on_field_filter(
 
     def repl(match: Match) -> str:
         filename = os.path.join(mw.col.media.dir(), match.group(1))
+        if not os.path.exists(filename):
+            return ""
         nonlocal idx
         idx += 1
         msg = {
