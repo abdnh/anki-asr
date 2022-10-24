@@ -5,11 +5,17 @@ import os
 import re
 import sys
 from concurrent.futures import Future
+from dataclasses import dataclass
 from re import Match
 
 from anki import hooks
+from anki.cards import Card
 from anki.template import TemplateRenderContext
 from aqt import mw
+from aqt.browser.previewer import Previewer
+from aqt.clayout import CardLayout
+from aqt.qt import QApplication
+from aqt.webview import AnkiWebView
 
 from . import consts
 
@@ -19,6 +25,23 @@ from .providers import get_provider
 
 SOUND_RE = re.compile(r"\[sound:(.*?)\]")
 CONFIG = mw.addonManager.getConfig(__name__)
+
+
+@dataclass
+class CardContext:
+    card: Card | None = None
+    web: AnkiWebView | None = None
+
+
+def get_active_card_context() -> CardContext:
+    dialog = QApplication.activeModalWidget()
+    if isinstance(dialog, CardLayout):
+        return CardContext(dialog.rendered_card, dialog.preview_web)
+    window = QApplication.activeWindow()
+    if isinstance(window, Previewer):
+        # pylint: disable=protected-access
+        return CardContext(window.card(), window._web)
+    return CardContext(mw.reviewer.card, mw.reviewer.web)
 
 
 def on_field_filter(
@@ -40,9 +63,13 @@ def on_field_filter(
 
         def on_done(fut: Future) -> None:
             result = fut.result()
-            # TODO: make this work in the previewer/clayout screens too
-            if mw.reviewer.card.id == ctx.card().id:
-                mw.reviewer.web.eval(
+            card_context = get_active_card_context()
+            if (
+                card_context.card
+                and card_context.web
+                and card_context.card.id == ctx.card().id
+            ):
+                card_context.web.eval(
                     """
                     (() => {
                         document.getElementsByClassName('asr')[%d].textContent = %s;
