@@ -43,4 +43,4 @@ This is useful to avoid making a request to the ASR service when not needed, or 
 
 ## Planned features
 
-Besides adding support for more services, I plan to add an option to fill in note a chosen field with the transcription, maybe with an option to process notes in bulk.
+Besides adding support for more services, I plan to add an option to fill in note a chosen field with the transcription, maybe support for bulk processing.

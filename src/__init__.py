@@ -62,8 +62,9 @@ def on_field_filter(
     idx = 0
 
     def repl(match: Match) -> str:
-        filename = os.path.join(mw.col.media.dir(), match.group(1))
-        if not os.path.exists(filename):
+        filename = match.group(1)
+        path = os.path.join(mw.col.media.dir(), filename)
+        if not os.path.exists(path):
             return ""
         nonlocal idx
         idx += 1
@@ -71,14 +72,14 @@ def on_field_filter(
             "cmd": "transcribe",
             "lang": lang,
             "provider": provider_name,
-            "filename": filename,
+            "filename": path,
             "cid": ctx.card().id,
             "idx": idx - 1,
         }
         cmd = json.dumps(f"{consts.CMD}:{json.dumps(msg)}")
         if auto:
             return f"<div class='asr'>Transcribing audio...<br><script>pycmd({cmd})</script></div>"
-        return f"""<div class='asr'><button onclick='var div = document.createElement("div"); div.textContent = "Transcribing audio..."; event.currentTarget.parentElement.appendChild(div); pycmd({cmd}); return false;'>Transcribe audio ({idx})</button></div>"""
+        return f"""<div class='asr'><button title='Transcribe {filename}' onclick='var div = document.createElement("div"); div.textContent = "Transcribing audio..."; event.currentTarget.parentElement.appendChild(div); pycmd({cmd}); return false;'>Transcribe audio ({idx})</button></div>"""
 
     return SOUND_RE.sub(repl, field_text)
 
