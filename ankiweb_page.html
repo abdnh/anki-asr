@@ -1,0 +1,23 @@
+This add-on adds speech recognition to your cards to transcribe audio files.
+
+<b>Supported speech-to-text services</b>
+The only supported service at the moment is <a href="https://deepgram.com/">Deepgram</a>. I plan to add support for <a href="https://cloud.google.com/speech-to-text">Google Speech-to-Text</a> and maybe <a href="https://github.com/openai/whisper">Whisper</a> in the future.
+
+<b>Usage</b>
+Most speech recognition services require you to register for an API key. After you sign up and get your key, you need to paste it in the add-on's config. Go to <i>Tools &gt; Add-ons</i>, select this add-on from your add-on list, and click <i>Config</i>. Then paste your key in the <code>api_key</code> option under the relevant service name under the <i>provider_options</i> option.
+
+<b>As a template filter</b>
+Currently, the add-on works as a template filter (<code>asr</code>, for "automatic speech recognition" or "Anki speech recognition"), which you put in your <a href="https://docs.ankiweb.net/templates/intro.html">card template</a>. E.g:
+<code>{{asr:Front}}</code>
+The add-on processes any <code>[sound:foo.mp3]</code> tags in the specified field and replaces them with the transcriptions of the audio.
+You can specify the language using the <code>lang</code> option. E.g:
+<code>{{asr lang=tr:Front}}</code>
+The default language is English (<code>en</code>). Supported languages depend on the service used. For Deepgram, see https://deepgram.com/product/languages/ for a list of supported languages.
+The speech-to-text service used can be specified using the <code>provider</code> option. E.g:
+<code>{{asr provider=deepgram:Front}}</code>
+If you set <code>auto=false</code>, a button will be shown that you can click to show the transcription:
+<code>{{asr auto=false:Front}}</code>
+This is useful to avoid making a request to the ASR service when not needed, or to simply use the transcription as an optional hint.
+
+<b>Planned features</b>
+Besides adding support for more services, I plan to add an option to fill in note a chosen field with the transcription, maybe support for bulk processing.

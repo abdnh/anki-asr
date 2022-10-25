@@ -41,6 +41,10 @@ If you set `auto=false`, a button will be shown that you can click to show the t
 
 This is useful to avoid making a request to the ASR service when not needed, or to simply use the transcription as an optional hint.
 
+## Download
+
+You can download the add-on from AnkiWeb: https://ankiweb.net/shared/info/411601849
+
 ## Planned features
 
 Besides adding support for more services, I plan to add an option to fill in note a chosen field with the transcription, maybe support for bulk processing.
