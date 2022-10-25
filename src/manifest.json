@@ -1,4 +1,5 @@
 {
     "name": "Speech Recognition for Anki",
-    "package": "asr"
+    "package": "asr",
+    "homepage": "https://github.com/abdnh/anki-asr"
 }
