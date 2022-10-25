@@ -7,11 +7,11 @@ The only supported service at the moment is [Deepgram](https://deepgram.com/). I
 ## Usage
 
 Most speech recognition services require you to register for an API key.
-After you sign up and get your key, you need to paste it in the add-on's config. Go to _Tools > Add-ons_, select this add-on from your add-on list, and click _Config_. Then paste your key in the `api_key` option under _provider_options > deepgram_.
+After you sign up and get your key, you need to paste it in the add-on's config. Go to _Tools > Add-ons_, select this add-on from your add-on list, and click _Config_. Then paste your key in the `api_key` option under the relevant service name under the _provider_options_ option.
 
 ### As a template filter
 
-Currently, the add-on works as a template filter you put in your [card template](https://docs.ankiweb.net/templates/intro.html). E.g:
+Currently, the add-on works as a template filter (`asr`, for "automatic speech recognition" or "Anki speech recognition"), which you put in your [card template](https://docs.ankiweb.net/templates/intro.html). E.g:
 
 ```
 {{asr:Front}}
