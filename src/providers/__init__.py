@@ -6,7 +6,7 @@ from .provider import ASRProvider
 PROVIDERS = [Deepgram]
 
 
-def get_provider(config: dict, name: str) -> ASRProvider:
+def get_provider(config: dict, name: str) -> ASRProvider | None:
     name = name.lower()
     for provider_class in PROVIDERS:
         if provider_class.name == name:
