@@ -3,11 +3,11 @@
 venv/
 
 # Anki
-*.ankiaddon
 src/meta.json
 ankidata/
 src/vendor/
 src/user_files/
+build/
 
 # General
 TODO.md

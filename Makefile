@@ -1,14 +1,13 @@
-.PHONY: all zip clean format mypy pylint fix
+.PHONY: all zip ankiweb vendor fix mypy pylint clean
 all: zip
 
-PACKAGE_NAME := asr
+ANKIBUILD_ARGS := --qt all --forms-dir forms --exclude user_files/*.json
 
-zip: $(PACKAGE_NAME).ankiaddon
+zip:
+	python -m ankibuild --type package $(ANKIBUILD_ARGS)
 
-$(PACKAGE_NAME).ankiaddon: src/*
-	rm -f $@
-	find src/ -type f -name '*.py[co]' -delete -o -type d -name __pycache__ -delete
-	( cd src/; zip -r ../$@ * -x meta.json -x user_files/*.json )
+ankiweb:
+	python -m ankibuild --type ankiweb $(ANKIBUILD_ARGS)
 
 vendor:
 	pip install -r requirements.txt -t src/vendor
@@ -24,4 +23,4 @@ pylint:
 	python -m pylint src
 
 clean:
-	rm -f $(PACKAGE_NAME).ankiaddon
+	rm -rf build/
