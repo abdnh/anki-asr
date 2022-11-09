@@ -1,6 +1,6 @@
 -r requirements.txt
-anki==2.1.49
-aqt==2.1.49
+anki==2.1.46
+aqt==2.1.46
 mypy==0.971
 pylint==2.15.0
 isort==5.10.1
