@@ -4,6 +4,7 @@ venv/
 
 # Anki
 src/meta.json
+src/manifest.json
 ankidata/
 src/vendor/
 src/user_files/
