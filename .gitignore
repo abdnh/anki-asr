@@ -8,6 +8,7 @@ src/manifest.json
 ankidata/
 src/vendor/
 src/user_files/
+src/forms/
 build/
 
 # General
