@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import html
 import json
 import os
 import re
@@ -50,14 +51,29 @@ def get_bool_option(options: dict, name: str, default: bool) -> bool:
     return val == "true"
 
 
+def format_filter_error(msg: str) -> str:
+    return f"<div style='color: red'>{consts.ADDON_NAME} add-on error: {html.escape(msg)}</div>"
+
+
 def on_field_filter(
     field_text: str, field_name: str, filter_name: str, ctx: TemplateRenderContext
 ) -> str:
     if not filter_name.startswith(consts.FILTER_NAME):
         return field_text
     options = dict(opt.split("=") for opt in filter_name.split()[1:])
-    lang = options.get("lang", "en")
     provider_name = options.get("provider", "deepgram")
+    subfilter = filter_name.split()[0].split("-", maxsplit=1)[1]
+    if subfilter == "langs":
+        provider = get_provider(CONFIG, options["provider"])
+        if not provider:
+            return format_filter_error(f'Unrecognized provider: "{provider_name}"')
+        langs = provider.languages
+        formatted_langs = ""
+        for lang_tuple in langs:
+            formatted_langs += f"{lang_tuple}<br>"
+        return formatted_langs
+
+    lang = options.get("lang", "en")
     auto = get_bool_option(options, "auto", True)
     idx = 0
 

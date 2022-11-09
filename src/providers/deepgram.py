@@ -41,3 +41,38 @@ class Deepgram(ASRProvider):
                 ]
 
         return asyncio.run(get_transcription())
+
+    @property
+    def languages(self) -> list[tuple[str, str]]:
+        langs = [
+            ("en", "English"),
+            ("en-AU", "English (Australia)"),
+            ("en-IN", "English (India)"),
+            ("en-NZ", "English (New Zealand)"),
+            ("en-GB", "English (United Kingdom)"),
+            ("en-US", "English (United States)"),
+            ("zh-CN", "Simplified Mandarin (China)"),
+            ("zh-TW", "Traditional Mandarin (Taiwan)"),
+            ("nl", "Dutch"),
+            ("fr", "French"),
+            ("fr-CA", "French (Canada)"),
+            ("de", "German"),
+            ("hi", "Hindi"),
+            ("hi-Latn", "Hindi (Roman script)"),
+            ("id", "Indonesian"),
+            ("it", "Italian"),
+            ("ja", "Japanese"),
+            ("ko", "Korean"),
+            ("pl", "Polish"),
+            ("pt", "Portuguese"),
+            ("pt-BR", "Portuguese (Brazil)"),
+            ("pt-PT", "Portuguese (Portugal)"),
+            ("ru", "Russian"),
+            ("es", "Spanish"),
+            ("es-419", "Spanish (Latin America)"),
+            ("sv", "Swedish"),
+            ("tr", "Turkish"),
+            ("uk", "Ukrainian"),
+        ]
+
+        return langs

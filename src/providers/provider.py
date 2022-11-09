@@ -22,3 +22,9 @@ class ASRProvider(ABC):
     @abstractmethod
     def _transcribe(self, filename: str, lang: str) -> str:
         raise NotImplementedError()
+
+    @property
+    @abstractmethod
+    def languages(self) -> list[tuple[str, str]]:
+        """Return a list containing tuples of (language_id, language_name) pairs for languages supported  by the provider."""
+        return []

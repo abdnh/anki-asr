@@ -41,6 +41,14 @@ If you set `auto=false`, a button will be shown that you can click to show the t
 
 This is useful to avoid making a request to the ASR service when not needed, or to simply use the transcription as an optional hint.
 
+You can see a list of each provider's supported languages by placing something like the following on your template:
+
+```
+{{asr-langs provider=deepgram:}}
+```
+
+This will list each supported language's code and name. The language code is what you have to provide to the `lang` option.
+
 ## Download
 
 You can download the add-on from AnkiWeb: https://ankiweb.net/shared/info/411601849
