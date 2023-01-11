@@ -3,5 +3,11 @@
         "deepgram": {
             "api_key": ""
         }
-    }
+    },
+    "audio_field": "Audio",
+    "text_field": "Text",
+    "provider_field": "deepgram",
+    "lang_field": "en",
+    "editor_shortcut": "",
+    "browser_shortcut": ""
 }

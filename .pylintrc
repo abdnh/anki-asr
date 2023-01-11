@@ -12,10 +12,17 @@ disable=
   missing-function-docstring,
   consider-using-f-string,
   unused-argument,
+  wildcard-import,
+  unused-wildcard-import,
+  too-many-locals,
+  too-many-instance-attributes,
+  broad-except,
   wrong-import-position,
   too-few-public-methods,
+  line-too-long,
 
 [BASIC]
 good-names =
   mw,
   i,
+  op,

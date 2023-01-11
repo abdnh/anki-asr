@@ -11,7 +11,7 @@ After you sign up and get your key, you need to paste it in the add-on's config.
 
 ### As a template filter
 
-Currently, the add-on works as a template filter (`asr`, for "automatic speech recognition" or "Anki speech recognition"), which you put in your [card template](https://docs.ankiweb.net/templates/intro.html). E.g:
+The add-on can work as a template filter (`asr`, for "automatic speech recognition" or "Anki speech recognition"), which you put in your [card template](https://docs.ankiweb.net/templates/intro.html). E.g:
 
 ```
 {{asr:Front}}
@@ -49,10 +49,14 @@ You can see a list of each provider's supported languages by placing something l
 
 This will list each supported language's code and name. The language code is what you have to provide to the `lang` option.
 
+### Fill-in option
+
+You can also paste the transcriptions of audio files in a chosen field to any other field using the editor button with the chat dots or the _Notes > Transcribe Selected_ browser action for bulk processing.
+
 ## Download
 
-You can download the add-on from AnkiWeb: https://ankiweb.net/shared/info/411601849
+The the add-on can be downloaded from AnkiWeb: https://ankiweb.net/shared/info/411601849
 
-## Planned features
+## Credit
 
-Besides adding support for more services, I plan to add an option to fill in note a chosen field with the transcription, maybe support for bulk processing.
+The icon is adapted from [Bootstrap Icons](https://icons.getbootstrap.com/); licensed under the MIT.
