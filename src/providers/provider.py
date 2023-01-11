@@ -13,10 +13,10 @@ class ASRProvider(ABC):
         super().__init__()
 
     def transcribe(self, filename: str, lang: str) -> str:
-        transcription = get_cached_transcription(filename)
+        transcription = get_cached_transcription(self.name, lang, filename)
         if not transcription:
             transcription = self._transcribe(filename, lang)
-            cache_transcription(filename, transcription)
+            cache_transcription(self.name, lang, filename, transcription)
         return transcription
 
     @abstractmethod

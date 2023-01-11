@@ -21,16 +21,22 @@ def write_cache(cache: dict) -> None:
         json.dump(cache, file, ensure_ascii=False)
 
 
-def get_cached_transcription(filename: str) -> str | None:
+def get_cached_transcription(provider: str, lang: str, filename: str) -> str | None:
     with open(filename, "rb") as file:
-        digest = hashlib.sha256(file.read()).hexdigest()
+        digest = hashlib.sha256(
+            file.read() + lang.encode() + provider.encode()
+        ).hexdigest()
         cache = get_cache()
         return cache.get(digest, None)
 
 
-def cache_transcription(filename: str, transcription: str) -> None:
+def cache_transcription(
+    provider: str, lang: str, filename: str, transcription: str
+) -> None:
     with open(filename, "rb") as file:
-        digest = hashlib.sha256(file.read()).hexdigest()
+        digest = hashlib.sha256(
+            file.read() + lang.encode() + provider.encode()
+        ).hexdigest()
         cache = get_cache()
         cache[digest] = transcription
         write_cache(cache)
