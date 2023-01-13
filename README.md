@@ -57,6 +57,10 @@ You can also paste the transcriptions of audio files in a chosen field to any ot
 
 The the add-on can be downloaded from AnkiWeb: https://ankiweb.net/shared/info/411601849
 
+## Changelog
+
+See [CHANGELOG.md](CHANGELOG.md) for a list of changes.
+
 ## Credit
 
 The icon is adapted from [Bootstrap Icons](https://icons.getbootstrap.com/); licensed under the MIT.

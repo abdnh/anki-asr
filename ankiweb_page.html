@@ -18,6 +18,15 @@ The speech-to-text service used can be specified using the <code>provider</code>
 If you set <code>auto=false</code>, a button will be shown that you can click to show the transcription:
 <code>{{asr auto=false:Front}}</code>
 This is useful to avoid making a request to the ASR service when not needed, or to simply use the transcription as an optional hint.
+You can see a list of each provider's supported languages by placing something like the following on your template:
+<code>{{asr-langs provider=deepgram:}}</code>
+This will list each supported language's code and name. The language code is what you have to provide to the <code>lang</code> option.
 
 <b>Fill-in option</b>
-You can also paste the transcriptions of audio files in a chosen field to any other field using the editor button with the chat dots or the <i>Notes > Transcribe Selected</i> browser action for bulk processing.
+You can also paste the transcriptions of audio files in a chosen field to any other field using the editor button with the chat dots or the <i>Notes &gt; Transcribe Selected</i> browser action for bulk processing.
+
+<b>Changelog</b>
+See <a href="https://github.com/abdnh/anki-asr/blob/master/CHANGELOG.md">CHANGELOG.md</a> for a list of changes.
+
+<b>Credit</b>
+The icon is adapted from <a href="https://icons.getbootstrap.com/">Bootstrap Icons</a>; licensed under the MIT.
