@@ -29,9 +29,9 @@ class Deepgram(ASRProvider):
                 source = {"buffer": audio, "mimetype": mimetype}
                 options = {
                     "punctuate": True,
-                    "model": "general",
+                    "model": self.config.get("model", "general"),
                     "language": lang,
-                    "tier": "base",
+                    "tier": self.config.get("tier", "base"),
                 }
                 response = await self.dg_client.transcription.prerecorded(
                     source, options

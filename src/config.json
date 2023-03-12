@@ -1,7 +1,9 @@
 {
     "provider_options": {
         "deepgram": {
-            "api_key": ""
+            "api_key": "",
+            "tier": "base",
+            "model": "general"
         }
     },
     "audio_field": "Audio",
