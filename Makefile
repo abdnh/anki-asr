@@ -10,7 +10,7 @@ ankiweb:
 	python -m ankibuild --type ankiweb $(ANKIBUILD_ARGS)
 
 vendor:
-	pip install -r requirements.txt -t src/vendor
+	pip install -U -r requirements.txt -t src/vendor
 
 fix:
 	python -m black src --exclude="forms|vendor"
