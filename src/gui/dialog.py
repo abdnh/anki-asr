@@ -44,6 +44,7 @@ class TranscribeDialog(QDialog):
         qconnect(self.form.addButton.clicked, self.on_add)
         qconnect(self.finished, self.on_finished)
         self.form.addButton.setShortcut("Ctrl+Return")
+        self.setWindowTitle(consts.ADDON_NAME)
 
     def on_provider_changed(self, index: int) -> None:
         self.provider_class = PROVIDERS[index]
