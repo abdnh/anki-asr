@@ -48,6 +48,7 @@ class TranscribeDialog(QDialog):
 
     def on_provider_changed(self, index: int) -> None:
         self.provider_class = PROVIDERS[index]
+        self.form.lang.clear()
         for i, (code, name) in enumerate(self.provider_class.languages()):
             self.form.lang.addItem(name, code)
             if self.lang in (code, name):
