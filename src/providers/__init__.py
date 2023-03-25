@@ -4,8 +4,9 @@ from typing import Any, Type
 
 from .deepgram import Deepgram
 from .provider import ASRProvider
+from .whisper import Whisper
 
-PROVIDERS = [Deepgram]
+PROVIDERS = [Deepgram, Whisper]
 
 
 def init_provider(

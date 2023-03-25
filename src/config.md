@@ -1,5 +1,7 @@
 -   `provider_options`: This holds options specific to each supported ASR service.
-    -   `deepgram`: Options for Deepgram:
+    -   `deepgram`: Options for [Deepgram](https://deepgram.com/):
         -   `api_key`: Your API key.
         -   `tier`: The [tier](https://developers.deepgram.com/documentation/features/tier/) to use.
         -   `model`: The [model](https://developers.deepgram.com/documentation/features/model/) to use.
+    -   `whisper`: Options for [Whisper](https://openai.com/research/whisper):
+        -   `api_key`: Your [API key](https://platform.openai.com/).

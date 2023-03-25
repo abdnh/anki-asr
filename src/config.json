@@ -4,6 +4,9 @@
             "api_key": "",
             "tier": "base",
             "model": "general"
+        },
+        "whisper": {
+            "api_key": ""
         }
     },
     "audio_field": "Audio",

@@ -2,7 +2,10 @@
 
 ## Supported speech-to-text services
 
-The only supported service at the moment is [Deepgram](https://deepgram.com/). I plan to add support for [Google Speech-to-Text](https://cloud.google.com/speech-to-text) and maybe [Whisper](https://github.com/openai/whisper) in the future.
+Currently supported services are the following:
+
+-   [Deepgram](https://deepgram.com/)
+-   [Whisper](https://openai.com/research/whisper)
 
 ## Usage
 
