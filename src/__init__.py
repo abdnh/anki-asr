@@ -145,7 +145,11 @@ def handle_js_message(
         provider = init_provider(CONFIG, provider_class)
 
         def on_done(fut: Future) -> None:
-            result = fut.result()
+            try:
+                result = fut.result()
+            except Exception as exc:
+                showWarning(str(exc), title=consts.ADDON_NAME)
+                return
             if card_context.card and card_context.web and card_context.card.id == cid:
                 card_context.web.eval(
                     """
