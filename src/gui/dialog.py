@@ -91,7 +91,7 @@ class TranscribeDialog(QDialog):
     def on_finished(self) -> None:
         audio_field = self.form.audioField.currentText()
         text_field = self.form.textField.currentText()
-        provider_field = self.form.provider.currentText()
+        provider_field = self.form.provider.currentText().lower()
         lang_field = self.form.lang.currentData(Qt.ItemDataRole.UserRole)
         self.config["audio_field"] = audio_field
         self.config["text_field"] = text_field
