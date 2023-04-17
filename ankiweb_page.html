@@ -1,15 +1,20 @@
 This add-on adds speech recognition to your cards to transcribe audio files.
 
 <b>Supported speech-to-text services</b>
-The only supported service at the moment is <a href="https://deepgram.com/">Deepgram</a>. I plan to add support for <a href="https://cloud.google.com/speech-to-text">Google Speech-to-Text</a> and maybe <a href="https://github.com/openai/whisper">Whisper</a> in the future.
+Currently supported services are the following:
+<ul><li><a href="https://deepgram.com/">Deepgram</a></li><li><a href="https://openai.com/research/whisper">Whisper</a></li></ul>
 
 <b>Usage</b>
-Most speech recognition services require you to register for an API key. After you sign up and get your key, you need to paste it in the add-on's config. Go to <i>Tools &gt; Add-ons</i>, select this add-on from your add-on list, and click <i>Config</i>. Then paste your key in the <code>api_key</code> option under the relevant service name under the <i>provider_options</i> option.
+Most speech recognition services require you to register for an API key. Check the docs of your chosen service for details. You can configure your API key from the add-on's dialog accessible from the editor button (<img src="https://raw.githubusercontent.com/abdnh/anki-asr/master/src/icons/icon.svg" width="16"/>).
+<img alt="Add-on's dialog" src="https://raw.githubusercontent.com/abdnh/anki-asr/master/images/dialog.png" width="500"/>
+
+<b>Fill-in option</b>
+You can paste the transcriptions of audio files in a chosen field to any other field using the editor button or the <i>Notes &gt; Transcribe Selected</i> browser action for bulk processing.
 
 <b>As a template filter</b>
-The add-on can work as a template filter (<code>asr</code>, for "automatic speech recognition" or "Anki speech recognition"), which you put in your <a href="https://docs.ankiweb.net/templates/intro.html">card template</a>. E.g:
+The add-on can also work as a template filter (<code>asr</code>, for "automatic speech recognition" or "Anki speech recognition"), which you put in your <a href="https://docs.ankiweb.net/templates/intro.html">card template</a>. E.g:
 <code>{{asr:Front}}</code>
-The add-on processes any <code>[sound:foo.mp3]</code> tags in the specified field and replaces them with the transcriptions of the audio.
+The add-on processes any <code>[sound:foo.mp3]</code> tags in the specified field and replaces them with the transcriptions of the audio. The results will be cached to avoid making additional requests to the ASR service in subsequent reviews. Compared to <a href="https://github.com/abdnh/anki-asr/blob/master/#fill-in-option">Fill-in option</a>, this has the advantage that newly created notes can make use of the add-on automatically as long as their card template contains the filter.
 You can specify the language using the <code>lang</code> option. E.g:
 <code>{{asr lang=tr:Front}}</code>
 The default language is English (<code>en</code>). Supported languages depend on the service used. For Deepgram, see https://deepgram.com/product/languages/ for a list of supported languages.
@@ -21,9 +26,6 @@ This is useful to avoid making a request to the ASR service when not needed, or 
 You can see a list of each provider's supported languages by placing something like the following on your template:
 <code>{{asr-langs provider=deepgram:}}</code>
 This will list each supported language's code and name. The language code is what you have to provide to the <code>lang</code> option.
-
-<b>Fill-in option</b>
-You can also paste the transcriptions of audio files in a chosen field to any other field using the editor button with the chat dots or the <i>Notes &gt; Transcribe Selected</i> browser action for bulk processing.
 
 <b>Changelog</b>
 See <a href="https://github.com/abdnh/anki-asr/blob/master/CHANGELOG.md">CHANGELOG.md</a> for a list of changes.

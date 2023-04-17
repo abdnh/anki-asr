@@ -9,18 +9,24 @@ Currently supported services are the following:
 
 ## Usage
 
-Most speech recognition services require you to register for an API key.
-After you sign up and get your key, you need to paste it in the add-on's config. Go to _Tools > Add-ons_, select this add-on from your add-on list, and click _Config_. Then paste your key in the `api_key` option under the relevant service name under the _provider_options_ option.
+Most speech recognition services require you to register for an API key. Check the docs of your chosen service for details.
+You can configure your API key from the add-on's dialog accessible from the editor button (<img src="src/icons/icon.svg" width="16">).
+
+<img src="images/dialog.png" alt="Add-on's dialog" width="500">
+
+### Fill-in option
+
+You can paste the transcriptions of audio files in a chosen field to any other field using the editor button or the _Notes > Transcribe Selected_ browser action for bulk processing.
 
 ### As a template filter
 
-The add-on can work as a template filter (`asr`, for "automatic speech recognition" or "Anki speech recognition"), which you put in your [card template](https://docs.ankiweb.net/templates/intro.html). E.g:
+The add-on can also work as a template filter (`asr`, for "automatic speech recognition" or "Anki speech recognition"), which you put in your [card template](https://docs.ankiweb.net/templates/intro.html). E.g:
 
 ```
 {{asr:Front}}
 ```
 
-The add-on processes any `[sound:foo.mp3]` tags in the specified field and replaces them with the transcriptions of the audio.
+The add-on processes any `[sound:foo.mp3]` tags in the specified field and replaces them with the transcriptions of the audio. The results will be cached to avoid making additional requests to the ASR service in subsequent reviews. Compared to [Fill-in option](#fill-in-option), this has the advantage that newly created notes can make use of the add-on automatically as long as their card template contains the filter.
 
 You can specify the language using the `lang` option. E.g:
 
@@ -51,10 +57,6 @@ You can see a list of each provider's supported languages by placing something l
 ```
 
 This will list each supported language's code and name. The language code is what you have to provide to the `lang` option.
-
-### Fill-in option
-
-You can also paste the transcriptions of audio files in a chosen field to any other field using the editor button with the chat dots or the _Notes > Transcribe Selected_ browser action for bulk processing.
 
 ## Download
 
