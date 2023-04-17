@@ -1,7 +1,7 @@
 .PHONY: all zip ankiweb vendor fix mypy pylint clean
 all: zip
 
-ANKIBUILD_ARGS := --qt all --forms-dir forms --exclude user_files/*.json --noconsts
+ANKIBUILD_ARGS := --qt all --forms-dir forms --exclude user_files/*.json
 
 zip:
 	python -m ankibuild --type package $(ANKIBUILD_ARGS)

@@ -74,6 +74,6 @@ class LineEditWithSuggestions(QLineEdit):
         self._completer.popup().hide()
 
     def hide_completer(self) -> None:
-        if sip.isdeleted(self._completer):  # type: ignore
+        if sip.isdeleted(self._completer):
             return
         self._completer.popup().hide()
