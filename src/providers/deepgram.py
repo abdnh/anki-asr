@@ -3,10 +3,11 @@ from __future__ import annotations
 import asyncio
 import mimetypes
 import sys
+from dataclasses import dataclass
 
 from deepgram import Deepgram as DG
 
-from .provider import ASRProvider
+from .provider import Provider, ProviderConfig
 
 # Work around "RuntimeError: Event loop is closed"
 # TODO: Test in Anki 2.1.55+ and remove if the issue is resolved
@@ -15,12 +16,20 @@ if sys.platform.startswith("win32"):
     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
 
 
-class Deepgram(ASRProvider):
+@dataclass
+class DeepgramConfig(ProviderConfig):
+    api_key: str
+    model: str = "general"
+    tier: str = "base"
+
+
+class Deepgram(Provider[DeepgramConfig]):
     name = "deepgram"
+    config_class = DeepgramConfig
 
     def __init__(self, config: dict) -> None:
         super().__init__(config)
-        self.dg_client = DG(self.config["api_key"])
+        self.dg_client = DG(self.config.api_key)
 
     def _transcribe(self, filename: str, lang: str) -> str:
         async def get_transcription() -> str:
@@ -29,9 +38,9 @@ class Deepgram(ASRProvider):
                 source = {"buffer": audio, "mimetype": mimetype}
                 options = {
                     "punctuate": True,
-                    "model": self.config.get("model", "general"),
+                    "model": self.config.model,
                     "language": lang,
-                    "tier": self.config.get("tier", "base"),
+                    "tier": self.config.tier,
                 }
                 response = await self.dg_client.transcription.prerecorded(
                     source, options

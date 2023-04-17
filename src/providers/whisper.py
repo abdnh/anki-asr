@@ -1,16 +1,24 @@
 from __future__ import annotations
 
+from dataclasses import dataclass
+
 import openai
 
-from .provider import ASRProvider
+from .provider import Provider, ProviderConfig
 
 
-class Whisper(ASRProvider):
+@dataclass
+class WhisperConfig(ProviderConfig):
+    api_key: str
+
+
+class Whisper(Provider[WhisperConfig]):
     name = "whisper"
+    config_class = WhisperConfig
 
     def __init__(self, config: dict) -> None:
         super().__init__(config)
-        openai.api_key = self.config["api_key"]
+        openai.api_key = self.config.api_key
 
     def _transcribe(self, filename: str, lang: str) -> str:
         with open(filename, "rb") as file:

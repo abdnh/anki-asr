@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import dataclasses
 import functools
 import time
 from concurrent.futures import Future
@@ -17,7 +18,8 @@ else:
 
 from .. import consts
 from ..providers import PROVIDERS, init_provider
-from ..providers.provider import ASRProvider
+from ..providers.provider import Provider
+from .provider_widgets import PROVIDER_WIDGETS, ProviderWidget
 
 
 class TranscribeDialog(QDialog):
@@ -30,8 +32,11 @@ class TranscribeDialog(QDialog):
         self.config = cast(dict, mw.addonManager.getConfig(__name__))
         self.form = Ui_Dialog()
         self.form.setupUi(self)
-        self.provider_class: Type[ASRProvider] = PROVIDERS[0]
+        self.provider_class: Type[Provider] = PROVIDERS[0]
+        self.provider: Provider = init_provider(self.config, self.provider_class)
+        self.provider_widget: ProviderWidget | None = None
         self.lang = self.config["lang_field"]
+        self.form.providerOptionsGroup.setLayout(QVBoxLayout())
         qconnect(self.form.provider.currentIndexChanged, self.on_provider_changed)
         provider_names = [provider.name for provider in PROVIDERS]
         self.form.provider.addItems([name.title() for name in provider_names])
@@ -48,12 +53,25 @@ class TranscribeDialog(QDialog):
 
     def on_provider_changed(self, index: int) -> None:
         self.provider_class = PROVIDERS[index]
+        self.provider = init_provider(self.config, self.provider_class)
         self.form.lang.clear()
         for i, (code, name) in enumerate(self.provider_class.languages()):
             self.form.lang.addItem(name, code)
             if self.lang in (code, name):
                 self.form.lang.setCurrentIndex(i)
         self.lang = self.form.lang.currentData(Qt.ItemDataRole.UserRole)
+        self.load_provider_widget()
+
+    def load_provider_widget(self) -> None:
+        while child := self.form.providerOptionsGroup.layout().takeAt(0):
+            child.widget().deleteLater()
+            del child
+        if widget_class := PROVIDER_WIDGETS.get(self.provider_class, None):
+            self.form.providerOptionsGroup.setVisible(True)
+            self.provider_widget = widget_class(self, self.provider)
+            self.form.providerOptionsGroup.layout().addWidget(self.provider_widget)
+        else:
+            self.form.providerOptionsGroup.setVisible(False)
 
     def on_lang_changed(self, index: int) -> None:
         self.lang = self.form.lang.currentData(Qt.ItemDataRole.UserRole)
@@ -97,12 +115,15 @@ class TranscribeDialog(QDialog):
         self.config["text_field"] = text_field
         self.config["provider_field"] = provider_field
         self.config["lang_field"] = lang_field
+        self.config["provider_options"][self.provider_class.name] = dataclasses.asdict(
+            self.provider.config
+        )
         self.mw.addonManager.writeConfig(__name__, self.config)
 
     def on_add(self) -> None:
         audio_field = self.form.audioField.currentText()
         text_field = self.form.textField.currentText()
-        provider = init_provider(self.config, self.provider_class)
+        provider = self.provider
         lang = self.lang
         mid = self.notes[0].mid
         self.mw.progress.start(
