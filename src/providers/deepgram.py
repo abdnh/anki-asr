@@ -5,8 +5,7 @@ import mimetypes
 import sys
 from dataclasses import dataclass
 
-from deepgram import Deepgram as DG
-
+from ..utils import contain_imports
 from .provider import Provider, ProviderConfig
 
 # Work around "RuntimeError: Event loop is closed"
@@ -27,29 +26,30 @@ class Deepgram(Provider[DeepgramConfig]):
     name = "deepgram"
     config_class = DeepgramConfig
 
-    def __init__(self, config: dict) -> None:
-        super().__init__(config)
-        self.dg_client = DG(self.config.api_key)
-
     def _transcribe(self, filename: str, lang: str) -> str:
-        async def get_transcription() -> str:
-            mimetype, _ = mimetypes.guess_type(filename)
-            with open(filename, "rb") as audio:
-                source = {"buffer": audio, "mimetype": mimetype}
-                options = {
-                    "punctuate": True,
-                    "model": self.config.model,
-                    "language": lang,
-                    "tier": self.config.tier,
-                }
-                response = await self.dg_client.transcription.prerecorded(
-                    source, options
-                )
-                return response["results"]["channels"][0]["alternatives"][0][
-                    "transcript"
-                ]
+        with contain_imports():
+            from deepgram import Deepgram as DG
 
-        return asyncio.run(get_transcription())
+            dg_client = DG(self.config.api_key)
+
+            async def get_transcription() -> str:
+                mimetype, _ = mimetypes.guess_type(filename)
+                with open(filename, "rb") as audio:
+                    source = {"buffer": audio, "mimetype": mimetype}
+                    options = {
+                        "punctuate": True,
+                        "model": self.config.model,
+                        "language": lang,
+                        "tier": self.config.tier,
+                    }
+                    response = await dg_client.transcription.prerecorded(
+                        source, options
+                    )
+                    return response["results"]["channels"][0]["alternatives"][0][
+                        "transcript"
+                    ]
+
+            return asyncio.run(get_transcription())
 
     @classmethod
     def languages(cls) -> list[tuple[str, str]]:

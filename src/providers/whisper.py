@@ -2,8 +2,7 @@ from __future__ import annotations
 
 from dataclasses import dataclass
 
-import openai
-
+from ..utils import contain_imports
 from .provider import Provider, ProviderConfig
 
 
@@ -16,16 +15,17 @@ class Whisper(Provider[WhisperConfig]):
     name = "whisper"
     config_class = WhisperConfig
 
-    def __init__(self, config: dict) -> None:
-        super().__init__(config)
-        openai.api_key = self.config.api_key
-
     def _transcribe(self, filename: str, lang: str) -> str:
-        with open(filename, "rb") as file:
-            res = openai.Audio.transcribe(
-                model="whisper-1", file=file, language=lang, response_format="text"
-            )
-            return str(res)
+        with contain_imports():
+            import openai
+
+            openai.api_key = self.config.api_key
+
+            with open(filename, "rb") as file:
+                res = openai.Audio.transcribe(
+                    model="whisper-1", file=file, language=lang, response_format="text"
+                )
+                return str(res)
 
     @classmethod
     def languages(cls) -> list[tuple[str, str]]:

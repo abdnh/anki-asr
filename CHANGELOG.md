@@ -5,6 +5,12 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.0.1] - 2023-04-18
+
+### Fixed
+
+-   Fixed error when uninstalling or updating the add-on.
+
 ## [1.0.0] - 2023-04-17
 
 ### Added
@@ -32,6 +38,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Initial release
 
+[1.0.1]: https://github.com/abdnh/anki-asr/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/abdnh/anki-asr/compare/0.1.0...1.0.0
 [0.1.0]: https://github.com/abdnh/anki-asr/compare/0.0.1...0.1.0
 [0.0.1]: https://github.com/abdnh/anki-asr/releases/tag/0.0.1
