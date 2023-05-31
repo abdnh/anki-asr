@@ -16,6 +16,7 @@ class WhisperWidget(ProviderWidget[Whisper]):
         self.setLayout(layout)
 
         self.api_key = QLineEdit(self)
+        self.api_key.setEchoMode(QLineEdit.EchoMode.Password)
         self.api_key.setText(self.provider.config.api_key)
         qconnect(self.api_key.textChanged, self.on_api_changed)
         layout.addRow("API Key", self.api_key)
