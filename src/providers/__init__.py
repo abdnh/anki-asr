@@ -6,7 +6,12 @@ from .deepgram import Deepgram
 from .provider import Provider
 from .whisper import Whisper
 
-PROVIDERS: list[Type[Provider]] = [Deepgram, Whisper]
+try:
+    from ..user_files.providers import PROVIDERS as USER_PROVIDERS
+except ImportError:
+    USER_PROVIDERS = []
+
+PROVIDERS: list[Type[Provider]] = [Deepgram, Whisper, *USER_PROVIDERS]
 
 
 def init_provider(config: dict[str, Any], provider_class: Type[Provider]) -> Provider:
