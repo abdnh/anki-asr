@@ -15,6 +15,7 @@ from anki import hooks
 from anki.cards import Card
 from anki.collection import Collection, OpChanges
 from anki.template import TemplateRenderContext
+from anki.utils import pointVersion
 from aqt import gui_hooks, mw
 from aqt.browser.previewer import Previewer
 from aqt.clayout import CardLayout
@@ -160,9 +161,10 @@ def handle_js_message(
                     % (idx, json.dumps(result))
                 )
 
-        mw.taskman.run_in_background(
-            lambda: provider.transcribe(filename, lang), on_done
-        )
+        kwargs = dict(task=lambda: provider.transcribe(filename, lang), on_done=on_done)
+        if pointVersion() >= 231000:
+            kwargs["uses_collection"] = False
+        mw.taskman.run_in_background(**kwargs)
 
     return (True, None)
 
