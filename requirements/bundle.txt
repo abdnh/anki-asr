@@ -1,43 +1,85 @@
 aiohttp==3.9.3
-    # via
-    #   deepgram-sdk
-    #   openai
+    # via deepgram-sdk
 aiosignal==1.3.1
     # via aiohttp
 ankiutils @ git+https://github.com/abdnh/ankiutils@b5c5dfd2a16446781cc2de06fdbd019cfa733c94
     # via -r requirements/bundle.in
+annotated-types==0.6.0
+    # via pydantic
+anyio==4.2.0
+    # via
+    #   httpx
+    #   openai
 async-timeout==4.0.3
     # via aiohttp
 attrs==23.2.0
     # via aiohttp
 certifi==2023.11.17
-    # via requests
-charset-normalizer==3.3.2
-    # via requests
+    # via
+    #   httpcore
+    #   httpx
 colorama==0.4.6
     # via tqdm
-deepgram-sdk==2.4.0
+dataclasses-json==0.6.3
+    # via deepgram-sdk
+deepgram-sdk==3.1.1
     # via -r requirements/bundle.in
+distro==1.9.0
+    # via openai
+exceptiongroup==1.2.0
+    # via anyio
 frozenlist==1.4.1
     # via
     #   aiohttp
     #   aiosignal
+h11==0.14.0
+    # via httpcore
+httpcore==1.0.2
+    # via httpx
+httpx==0.26.0
+    # via
+    #   deepgram-sdk
+    #   openai
 idna==3.6
     # via
-    #   requests
+    #   anyio
+    #   httpx
     #   yarl
+marshmallow==3.20.2
+    # via dataclasses-json
 multidict==6.0.4
     # via
     #   aiohttp
     #   yarl
-openai==0.27.4
+mypy-extensions==1.0.0
+    # via typing-inspect
+openai==1.10.0
     # via -r requirements/bundle.in
-requests==2.31.0
+packaging==23.2
+    # via marshmallow
+pydantic==2.6.0
     # via openai
+pydantic-core==2.16.1
+    # via pydantic
+sniffio==1.3.0
+    # via
+    #   anyio
+    #   httpx
+    #   openai
 tqdm==4.66.1
     # via openai
-urllib3==2.2.0
-    # via requests
+typing-extensions==4.9.0
+    # via
+    #   anyio
+    #   deepgram-sdk
+    #   openai
+    #   pydantic
+    #   pydantic-core
+    #   typing-inspect
+typing-inspect==0.9.0
+    # via dataclasses-json
+verboselogs==1.7
+    # via deepgram-sdk
 websockets==12.0
     # via deepgram-sdk
 yarl==1.9.4

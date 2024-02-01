@@ -1,8 +1,0 @@
--r requirements.txt
-aqt==2.1.46
-mypy==1.2.0
-pylint==2.17.2
-black==23.3.0
-isort==5.12.0
-types-requests==2.28.11.17
-ankiscripts[qt5,qt6] @ git+https://github.com/abdnh/ankiscripts@7b8df60e7d4c6be000ddd9b77a038c0b8323b5ae
