@@ -1,3 +1,4 @@
+# pylint: disable=relative-beyond-top-level
 from ...providers.provider import Provider
 
 # Add your custom providers here
