@@ -20,9 +20,9 @@ class Whisper(Provider[WhisperConfig]):
             import openai
 
             openai.api_key = self.config.api_key
-
+            client = openai.Audio()
             with open(filename, "rb") as file:
-                res = openai.Audio.transcribe(
+                res = client.transcribe(
                     model="whisper-1", file=file, language=lang, response_format="text"
                 )
                 return str(res)
