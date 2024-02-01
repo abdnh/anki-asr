@@ -1,26 +1,33 @@
-.PHONY: all zip ankiweb vendor fix mypy pylint clean
-all: zip
+.PHONY: all zip ankiweb vendor fix mypy pylint lint test sourcedist clean
 
-ANKIBUILD_ARGS := --qt all --forms-dir forms --exclude user_files/*.json
+all: zip ankiweb
 
 zip:
-	python -m ankibuild --type package $(ANKIBUILD_ARGS)
+	python -m ankiscripts.build --type package --qt all --exclude user_files/**/*
 
 ankiweb:
-	python -m ankibuild --type ankiweb $(ANKIBUILD_ARGS)
+	python -m ankiscripts.build --type ankiweb --qt all --exclude user_files/**/*
 
 vendor:
-	pip install -U -r requirements.txt -t src/vendor
+	python -m ankiscripts.vendor
 
 fix:
-	python -m black src --exclude="forms|vendor"
-	python -m isort src
+	python -m black src tests --exclude="forms|vendor"
+	python -m isort src tests
 
 mypy:
-	python -m mypy src
+	-python -m mypy src tests
 
 pylint:
-	python -m pylint src
+	-python -m pylint src tests
+
+lint: mypy pylint
+
+test:
+	python -m  pytest --cov=src --cov-config=.coveragerc
+
+sourcedist:
+	python -m ankiscripts.sourcedist
 
 clean:
 	rm -rf build/

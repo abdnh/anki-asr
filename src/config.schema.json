@@ -1,0 +1,21 @@
+{
+    "properties": {
+        "provider_options": {
+            "type": "object",
+            "patternProperties": {
+                ".*": {
+                    "type": "object"
+                }
+            }
+        },
+        "audio_field": {
+            "type": "string"
+        },
+        "text_field": { "type": "string" },
+        "provider_field": { "type": "string" },
+        "lang_field": { "type": "string" },
+        "editor_shortcut": { "type": "string" },
+        "browser_shortcut": { "type": "string" }
+    },
+    "type": "object"
+}

@@ -17,7 +17,7 @@ T = TypeVar("T", bound=ProviderConfig)
 
 class Provider(Generic[T], ABC):
     name: str
-    config_class: Type[T]
+    config_class: type[T]
 
     def __init__(self, config: dict) -> None:
         self.config = self.config_class(**config)

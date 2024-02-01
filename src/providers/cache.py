@@ -3,20 +3,20 @@ from __future__ import annotations
 import hashlib
 import json
 
-from ..consts import USERFILES_DIR
+from ..consts import consts
 
 
 def get_cache() -> dict:
-    path = USERFILES_DIR / "transcriptions.json"
+    path = consts.dir / "user_files" / "transcriptions.json"
     if not path.exists():
         with open(path, "w", encoding="utf-8") as file:
             file.write("{}")
-    with open(path, "r", encoding="utf-8") as file:
+    with open(path, encoding="utf-8") as file:
         return json.load(file)
 
 
 def write_cache(cache: dict) -> None:
-    path = USERFILES_DIR / "transcriptions.json"
+    path = consts.dir / "user_files" / "transcriptions.json"
     with open(path, "w", encoding="utf-8") as file:
         json.dump(cache, file, ensure_ascii=False)
 

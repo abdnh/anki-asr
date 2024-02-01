@@ -7,7 +7,7 @@ from .deepgram import Deepgram, DeepgramWidget
 from .provider_widget import ProviderWidget
 from .whisper import Whisper, WhisperWidget
 
-PROVIDER_WIDGETS: dict[Type[Provider], Type[ProviderWidget]] = {
+PROVIDER_WIDGETS: dict[type[Provider], type[ProviderWidget]] = {
     Deepgram: DeepgramWidget,
     Whisper: WhisperWidget,
 }

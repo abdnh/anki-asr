@@ -1,7 +1,8 @@
 from __future__ import annotations
 
-from typing import Any, Type
+from typing import Type
 
+from ..config import config
 from .deepgram import Deepgram
 from .provider import Provider
 from .whisper import Whisper
@@ -11,16 +12,16 @@ try:
 except ImportError:
     USER_PROVIDERS = []
 
-PROVIDERS: list[Type[Provider]] = [Deepgram, Whisper, *USER_PROVIDERS]
+PROVIDERS: list[type[Provider]] = [Deepgram, Whisper, *USER_PROVIDERS]
 
 
-def init_provider(config: dict[str, Any], provider_class: Type[Provider]) -> Provider:
+def init_provider(provider_class: type[Provider]) -> Provider:
     return provider_class(
         config.get("provider_options", {}).get(provider_class.name, {})
     )
 
 
-def get_provider(name: str) -> Type[Provider] | None:
+def get_provider(name: str) -> type[Provider] | None:
     name = name.lower()
     for provider_class in PROVIDERS:
         if provider_class.name == name:
