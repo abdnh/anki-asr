@@ -58,6 +58,12 @@ You can see a list of each provider's supported languages by placing something l
 
 This will list each supported language's code and name. The language code is what you have to provide to the `lang` option.
 
+## Advanced
+
+### Custom providers
+
+If you know Python, you can integate any ASR service via a custom provider. See [user_files/providers/my_provider.py](src/user_files/providers/my_provider.py) for an example. If your provider is general enough to warrant including in the add-on, please open a pull request!
+
 ## Download
 
 The the add-on can be downloaded from AnkiWeb: https://ankiweb.net/shared/info/411601849
