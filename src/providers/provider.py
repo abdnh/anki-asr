@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from abc import ABC, abstractmethod
 from dataclasses import dataclass
-from typing import Generic, Type, TypeVar
+from typing import Generic, TypeVar
 
 from .cache import cache_transcription, get_cached_transcription
 

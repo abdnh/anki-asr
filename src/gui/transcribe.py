@@ -4,7 +4,6 @@ import dataclasses
 import functools
 import time
 from concurrent.futures import Future
-from typing import Type
 
 from anki.notes import Note
 from aqt.main import AnkiQt
@@ -144,7 +143,7 @@ class TranscribeDialog(Dialog):
                 want_cancel = self.mw.progress.want_cancel()
 
             for i, note in enumerate(self.notes):
-                filenames = self.mw.col.media.filesInStr(mid, note[audio_field])
+                filenames = self.mw.col.media.filesInStr(mid, note[audio_field])  # type: ignore[attr-defined]
                 if not filenames:
                     continue
                 texts = []

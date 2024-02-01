@@ -28,7 +28,6 @@ from aqt.webview import AnkiWebView
 sys.path.append(os.path.join(os.path.dirname(__file__), "vendor"))
 
 from .consts import consts
-from .log import logger
 
 try:
     from aqt.browser.browser import Browser
