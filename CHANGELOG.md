@@ -5,6 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.1.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [1.1.0] - 2024-02-18
+
+### Changed
+
+-   API keys in the interface are now masked.
+
+### Added
+
+-   Added support for custom ASR services.
+-   Added a window to show recently transcribed files.
+
+### Fixed
+
+-   Fix progress dialog blocking review when transcribing in the review screen.
+
 ## [1.0.1] - 2023-04-18
 
 ### Fixed
@@ -38,6 +53,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Initial release
 
+[1.0.1]: https://github.com/abdnh/anki-asr/compare/1.0.1...1.1.0
 [1.0.1]: https://github.com/abdnh/anki-asr/compare/1.0.0...1.0.1
 [1.0.0]: https://github.com/abdnh/anki-asr/compare/0.1.0...1.0.0
 [0.1.0]: https://github.com/abdnh/anki-asr/compare/0.0.1...0.1.0
