@@ -17,13 +17,11 @@ class Whisper(Provider[WhisperConfig]):
 
     def _transcribe(self, filename: str, lang: str) -> str:
         with contain_imports():
-            import openai
-            from openai import Audio
+            from openai import OpenAI
 
-            openai.api_key = self.config.api_key
-
+            client = OpenAI(api_key=self.config.api_key)
             with open(filename, "rb") as file:
-                res = Audio.transcribe(
+                res = client.audio.transcriptions.create(
                     model="whisper-1", file=file, language=lang, response_format="text"
                 )
                 return str(res)
