@@ -58,6 +58,10 @@ You can see a list of each provider's supported languages by placing something l
 
 This will list each supported language's code and name. The language code is what you have to provide to the `lang` option.
 
+## Transcription tasks
+
+In the window under _Tools > Speech Recognition for Anki > Task List_ you can see a list of files transcribed since starting Anki and their status (running, finished successfully or with an error) and the resulting transcriptions.
+
 ## Advanced
 
 ### Custom providers
