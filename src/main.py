@@ -14,7 +14,6 @@ from anki import hooks
 from anki.cards import Card
 from anki.collection import Collection, OpChanges
 from anki.template import TemplateRenderContext
-from anki.utils import pointVersion
 from aqt import gui_hooks, mw
 from aqt.browser.previewer import Previewer
 from aqt.clayout import CardLayout
@@ -28,6 +27,7 @@ from aqt.webview import AnkiWebView
 sys.path.append(os.path.join(os.path.dirname(__file__), "vendor"))
 
 from .consts import consts
+from .gui.tasklist import TasklistDialog
 
 try:
     from aqt.browser.browser import Browser
@@ -163,12 +163,7 @@ def handle_js_message(
                     % (idx, json.dumps(result))
                 )
 
-        kwargs: dict[str, Any] = dict(
-            task=lambda: provider.transcribe(filename, lang), on_done=on_done
-        )
-        if pointVersion() >= 231000:
-            kwargs["uses_collection"] = False
-        mw.taskman.run_in_background(**kwargs)
+        provider.transcribe_in_background(filename, lang, mw.taskman, on_done)
 
     return (True, None)
 
@@ -232,7 +227,20 @@ def add_browser_action(browser: Browser) -> None:
     browser.form.menu_Notes.addAction(action)
 
 
+def on_task_list() -> None:
+    TasklistDialog(mw, mw).show()
+
+
+def add_main_menu() -> None:
+    menu = QMenu(consts.name, mw)
+    tasklist_action = QAction("Task List", menu)
+    qconnect(tasklist_action.triggered, on_task_list)
+    menu.addAction(tasklist_action)
+    mw.form.menuTools.addMenu(menu)
+
+
 hooks.field_filter.append(on_field_filter)
 gui_hooks.webview_did_receive_js_message.append(handle_js_message)
 gui_hooks.editor_did_init_buttons.append(add_editor_button)
 gui_hooks.browser_menus_did_init.append(add_browser_action)
+add_main_menu()
