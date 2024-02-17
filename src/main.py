@@ -233,7 +233,7 @@ def on_task_list() -> None:
 
 def add_main_menu() -> None:
     menu = QMenu(consts.name, mw)
-    tasklist_action = QAction("Task List", menu)
+    tasklist_action = QAction("Transcribed Files", menu)
     qconnect(tasklist_action.triggered, on_task_list)
     menu.addAction(tasklist_action)
     mw.form.menuTools.addMenu(menu)

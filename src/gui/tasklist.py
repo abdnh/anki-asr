@@ -62,7 +62,7 @@ class TasklistDialog(Dialog):
     def setup_ui(self) -> None:
         super().setup_ui()
         qconnect(self.finished, self.cleanup)
-        self.setWindowTitle(f"{consts.name} - Task List")
+        self.setWindowTitle(f"{consts.name} - Transcribed Files")
         icon = QIcon()
         icon.addPixmap(QPixmap("icons:anki.png"), QIcon.Mode.Normal, QIcon.State.Off)
         self.setWindowIcon(icon)
