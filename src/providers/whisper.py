@@ -22,6 +22,7 @@ class Whisper(Provider[WhisperConfig]):
             openai.api_key = self.config.api_key
 
             with open(filename, "rb") as file:
+                # pylint: disable=no-member
                 res = openai.Audio.transcribe(
                     model="whisper-1", file=file, language=lang, response_format="text"
                 )
