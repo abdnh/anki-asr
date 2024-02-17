@@ -1,6 +1,7 @@
 {
-    "name": "Speech Recognition for Anki",
-    "package": "asr",
+    "ankiweb_id": "411601849",
     "homepage": "https://github.com/abdnh/anki-asr",
-    "min_point_version": 46
+    "min_point_version": 46,
+    "name": "Speech Recognition for Anki",
+    "package": "asr"
 }
