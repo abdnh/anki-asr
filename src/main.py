@@ -228,7 +228,7 @@ def add_browser_action(browser: Browser) -> None:
 
 
 def on_task_list() -> None:
-    TasklistDialog(mw, mw).show()
+    TasklistDialog(mw).show()
 
 
 def add_main_menu() -> None:

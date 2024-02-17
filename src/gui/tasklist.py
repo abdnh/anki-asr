@@ -55,7 +55,7 @@ class TaskActionsWidget(QWidget):
 class TasklistDialog(Dialog):
     key = "tasklist"
 
-    def __init__(self, mw: AnkiQt, parent: QWidget) -> None:
+    def __init__(self, mw: AnkiQt, parent: QWidget | None = None) -> None:
         self.mw = mw
         super().__init__(parent, Qt.WindowType.Window)
 
@@ -63,6 +63,9 @@ class TasklistDialog(Dialog):
         super().setup_ui()
         qconnect(self.finished, self.cleanup)
         self.setWindowTitle(f"{consts.name} - Task List")
+        icon = QIcon()
+        icon.addPixmap(QPixmap("icons:anki.png"), QIcon.Mode.Normal, QIcon.State.Off)
+        self.setWindowIcon(icon)
         vbox = QVBoxLayout()
         self.setLayout(vbox)
         table_widget = self.table_widget = QTableWidget(self)
