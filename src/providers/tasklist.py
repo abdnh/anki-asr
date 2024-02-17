@@ -15,7 +15,7 @@ class TranscriptionTask:
     def status_text(self) -> str:
         if self.future.running():
             duration = datetime.now() - self.started
-            return f"Running for {duration.total_seconds():0.2} s"
+            return f"Running for {duration.total_seconds():.2f} s"
         elif self.future.exception():
             return f"Error: {self.future.exception()}"
         else:
