@@ -227,8 +227,13 @@ def add_browser_action(browser: Browser) -> None:
     browser.form.menu_Notes.addAction(action)
 
 
+tasklist_dialog: TasklistDialog | None = None
+
+
 def on_task_list() -> None:
-    TasklistDialog(mw).show()
+    global tasklist_dialog
+    tasklist_dialog = TasklistDialog(mw)
+    tasklist_dialog.show()
 
 
 def add_main_menu() -> None:
