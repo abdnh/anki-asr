@@ -1,3 +1,4 @@
 ankiutils @ git+https://github.com/abdnh/ankiutils@29652295f7e1d2aff55e000a66fbc239de8c6224
-deepgram-sdk
+# v3 dropped support for Python 3.9
+deepgram-sdk==2.12.0
 openai
