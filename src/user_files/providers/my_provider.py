@@ -1,6 +1,6 @@
 """
 This is an example of how to write a custom ASR provider.
-Do not forget to add your provider class to the `PROVIDERS` list in user_files/__init__.py
+Do not forget to add your provider class to the `PROVIDERS` list in user_files/providers/__init__.py
 """
 
 from __future__ import annotations

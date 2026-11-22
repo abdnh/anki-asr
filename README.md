@@ -66,7 +66,16 @@ In the window under _Tools > Speech Recognition for Anki > Transcribed Files_ yo
 
 ### Custom providers
 
-If you know Python, you can integate any ASR service via a custom provider. See [user_files/providers/my_provider.py](src/user_files/providers/my_provider.py) for an example. If your provider is general enough to warrant including in the add-on, please open a pull request!
+Start with [the example provider](src/user_files/providers/my_provider.py). Register your provider in [`user_files/providers/__init__.py`](src/user_files/providers/__init__.py) by importing its class and appending it to the existing `PROVIDERS` list. For example:
+
+```python
+from .my_provider import MyProvider
+PROVIDERS.append(MyProvider)
+```
+
+Restart Anki, then open **Browse → Notes → Transcribe Selected** to select the provider. For a working offline example, see [Fourier’s custom English provider](https://huggingface.co/oruk/oruk-fourier-2b/blob/3385bc29a690d2a9d3205d58274a78a36d7ce6f0/examples/anki/README.md#already-using-speech-recognition-for-anki) (separate noncommercial model download).
+
+If your provider is general enough to include in the add-on, please open a pull request!
 
 ## Download
 
